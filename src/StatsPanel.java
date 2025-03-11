@@ -7,16 +7,19 @@ import java.util.ArrayList;
  * Loads data from the file and displays in a JPanel
  *
  * TODO: refactor this class
+ * TODO: move calculations to statsFile (only UI here) ?????????
  */
 public class StatsPanel extends JPanel {
 
     private final JPanel resultsPanel;
 
     // Stats will display the number of games in each "bin"
-    // A bin goes from BIN_EDGES[i] through BIN_EDGES[i+1]-1, inclusive
+    // A bin goes from BIN_EDGES[i] through BIN_EDGES[i+1]-1, inclusive //OBOB
     private static final int [] BIN_EDGES = {1, 2, 4, 6, 8, 10, 12, 14};
     private ArrayList<JLabel> resultsLabels;
 
+    //TODO: seperate bin logic and I/O
+    //TODO: constructor only have init. move everything else to other method
     public StatsPanel(JPanel cardsPanel) {
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -90,6 +93,7 @@ public class StatsPanel extends JPanel {
         }
     }
 
+    //TODO: dependency injection for file
     private void updateResultsPanel(){
         clearResults();
 
