@@ -70,9 +70,11 @@ public class GameOverPanel extends JPanel {
      */
     // TODO: refactor this method
     // TODO: split up: seperate UI & I/O from other stuff
+    // todo: then, update lambda function in GuessTheNumberUI
     public void setGameResults(GameResult result){
         this.gameResult = result;
 
+        // UI
         answerTxt.setText("The answer was " + result.correctValue + ".");
         if(result.numGuesses == 1){
             numGuessesTxt.setText((result.humanWasPlaying ? "You" : "I") + " guessed it on the first try!");
@@ -82,7 +84,8 @@ public class GameOverPanel extends JPanel {
         }
 
         if(result.humanWasPlaying){
-            // write stats to file
+            // write stats to file (I/O)
+            // todo: move this to StatsFile?
             try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.FILENAME, true))) {
 
                 String [] record = new String[2];
