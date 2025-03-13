@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * Displays the game outcome
  * Writes the results to file (if human was guessing)
  *
- * TODO: Refactor the setGameResults method. Leave the rest of this file unchanged.
+ * TODO: Refactor the setGameResults method. Leave the rest of this file unchanged.**DONE**
  */
 public class GameOverPanel extends JPanel {
 

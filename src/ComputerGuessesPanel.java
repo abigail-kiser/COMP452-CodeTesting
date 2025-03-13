@@ -8,7 +8,7 @@ import java.util.function.Consumer;
  * Displays the computer's guesses and processes human's answers
  * Tracks the computer's guesses
  *
- * TODO: refactor this class
+ * TODO: refactor this class **DONE**
  */
 public class ComputerGuessesPanel extends JPanel {
 
@@ -20,8 +20,7 @@ public class ComputerGuessesPanel extends JPanel {
     private int upperBound; // correct number is <= upperBound
     private int lowerBound; // correct number is >= lowerBound
 
-    // todo: separate UI stuff from logic (lambda functions are all logic except for setText)
-    //  maybe move logic to non-UI class?
+
     public ComputerGuessesPanel(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback){
         numGuesses = 0;
         upperBound = 1000;
@@ -29,23 +28,13 @@ public class ComputerGuessesPanel extends JPanel {
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        JLabel guessMessage = new JLabel("I guess ___.");
-        guessMessage.setAlignmentX(Component.LEFT_ALIGNMENT);
-        this.add(guessMessage);
-        guessMessage.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel guessMessage = addTextLabel("I guess ___.", 0, 40);
 
-        this.add(Box.createRigidArea(new Dimension(0, 40)));
-
-        JLabel prompt = new JLabel("Your number is...");
-        this.add(prompt);
-        prompt.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(Box.createRigidArea(new Dimension(0,10)));
-
+        JLabel prompt = addTextLabel("Your number is...", 0, 10);
 
         addButtons(cardsPanel, gameFinishedCallback, guessMessage);
 
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
-            // todo: move this method out ??
             public void componentShown(java.awt.event.ComponentEvent e) {
                 numGuesses = 0;
                 upperBound = 1000;
@@ -57,15 +46,19 @@ public class ComputerGuessesPanel extends JPanel {
         });
     }
 
+    private JLabel addTextLabel(String displayTxt, int width, int height){
+        JLabel txtLabel = new JLabel(displayTxt);
+        this.add(txtLabel);
+        txtLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(Box.createRigidArea(new Dimension(width,height)));
+        return txtLabel;
+    }
 
     private void addButtons(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback, JLabel guessMessage) {
         JButton lowerBtn = new JButton("Lower");
         lowerBtn.addActionListener(e -> {
             upperBound = Math.min(upperBound, lastGuess);
-
-            lastGuess = (lowerBound + upperBound + 1) / 2;
-            numGuesses += 1;
-            guessMessage.setText("I guess " + lastGuess + ".");
+            setGuessMsgTxt(guessMessage);
         });
         this.add(lowerBtn);
         lowerBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -89,13 +82,16 @@ public class ComputerGuessesPanel extends JPanel {
         JButton higherBtn = new JButton("Higher");
         higherBtn.addActionListener(e -> {
             lowerBound = Math.max(lowerBound, lastGuess + 1);
-
-            lastGuess = (lowerBound + upperBound + 1) / 2;
-            numGuesses += 1;
-            guessMessage.setText("I guess " + lastGuess + ".");
+            setGuessMsgTxt(guessMessage);
         });
         this.add(higherBtn);
         higherBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+    private void setGuessMsgTxt(JLabel guessMessage){
+        lastGuess = (lowerBound + upperBound + 1) / 2;
+        numGuesses += 1;
+        guessMessage.setText("I guess " + lastGuess + ".");
     }
 
 }

@@ -6,9 +6,7 @@ import java.util.ArrayList;
  * Displays statistics about how many guesses the person took during past games
  * Loads data from the file and displays in a JPanel
  *
- * TODO: refactor this class
- * TODO: move calculations to statsFile (only UI here) ?????????
- * TODO fix this ???? -> find what needs to be refactored
+ * **DONE** TODO: refactor this class
  */
 public class StatsPanel extends JPanel {
 
@@ -20,48 +18,20 @@ public class StatsPanel extends JPanel {
     private ArrayList<JLabel> resultsLabels;
 
     public StatsPanel(JPanel cardsPanel) {
-
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        JLabel title = new JLabel("Your Stats");
-        this.add(title);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel subtitle = new JLabel("(Past 30 Days)");
-        this.add(subtitle);
-        subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel title = mkTextLabel("Your Stats");
+        JLabel subtitle = mkTextLabel("(Past 30 Days)");
 
         this.add(Box.createRigidArea(new Dimension(0,40)));
 
         resultsPanel = new JPanel();
-        resultsLabels = new ArrayList<>();
-        resultsPanel.setLayout(new GridLayout(0, 2));
-        resultsPanel.add(new JLabel("Guesses"));
-        resultsPanel.add(new JLabel("Games"));
-        for(int binIndex=0; binIndex<BIN_EDGES.length; binIndex++){
-            // todo: extract binName logic to separate method **DONE**
-
-            resultsPanel.add(new JLabel(getBinName(binIndex)));
-            JLabel result = new JLabel("--");
-            resultsLabels.add(result);
-            resultsPanel.add(result);
-        }
-
-        resultsPanel.setMinimumSize(new Dimension(120, 120));
-        this.add(resultsPanel);
-        resultsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mkResultsPanel();
         updateResultsPanel();
 
         this.add(Box.createVerticalGlue());
 
-        JButton quit = new JButton("Back to Home");
-        quit.addActionListener(e -> {
-            // See itemStateChanged in https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/CardLayoutDemoProject/src/layout/CardLayoutDemo.java
-            CardLayout cardLayout = (CardLayout) cardsPanel.getLayout();
-            cardLayout.show(cardsPanel, ScreenID.HOME.name());
-        });
-        this.add(quit);
-        quit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addQuitBtn(cardsPanel);
 
         this.add(Box.createRigidArea(new Dimension(0,20)));
 
@@ -70,6 +40,25 @@ public class StatsPanel extends JPanel {
                 updateResultsPanel();
             }
         });
+    }
+
+    private void addQuitBtn(JPanel cardsPanel) {
+        JButton quit = new JButton("Back to Home");
+        quit.addActionListener(e -> {
+            // See itemStateChanged in https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/CardLayoutDemoProject/src/layout/CardLayoutDemo.java
+            CardLayout cardLayout = (CardLayout) cardsPanel.getLayout();
+            cardLayout.show(cardsPanel, ScreenID.HOME.name());
+        });
+        this.add(quit);
+        quit.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
+
+    private JLabel mkTextLabel(String msg){
+        JLabel txt = new JLabel(msg);
+        this.add(txt);
+        txt.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return txt;
     }
 
     // returns binName
@@ -99,7 +88,6 @@ public class StatsPanel extends JPanel {
     private void updateResultsPanel(GameStats stats){
         clearResults();
 
-
         for(int binIndex=0; binIndex<BIN_EDGES.length; binIndex++){
             final int lowerBound = BIN_EDGES[binIndex];
             int numGames = 0;
@@ -123,12 +111,28 @@ public class StatsPanel extends JPanel {
         }
     }
 
+    private void mkResultsPanel() {
+        resultsLabels = new ArrayList<>();
+        resultsPanel.setLayout(new GridLayout(0, 2));
+        resultsPanel.add(new JLabel("Guesses"));
+        resultsPanel.add(new JLabel("Games"));
+        for(int binIndex=0; binIndex<BIN_EDGES.length; binIndex++){
+            // todo: extract binName logic to separate method **DONE**
+            resultsPanel.add(new JLabel(getBinName(binIndex)));
+            JLabel result = new JLabel("--");
+            resultsLabels.add(result);
+            resultsPanel.add(result);
+        }
+
+        resultsPanel.setMinimumSize(new Dimension(120, 120));
+        this.add(resultsPanel);
+        resultsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    }
+
     private void updateResultsPanel(){
         clearResults();
         GameStats stats = new StatsFile();
         updateResultsPanel(stats);
     }
-
-
 }
 
