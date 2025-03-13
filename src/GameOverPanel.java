@@ -86,7 +86,7 @@ public class GameOverPanel extends JPanel {
         if(result.humanWasPlaying){
             // write stats to file (I/O)
             // todo: move this to StatsFile?
-            try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.FILENAME, true))) {
+            try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.getFilename(), true))) {
 
                 String [] record = new String[2];
                 record[0] = LocalDateTime.now().toString();
