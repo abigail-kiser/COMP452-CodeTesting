@@ -10,8 +10,8 @@ import java.util.function.Consumer;
  *
  * TODO: refactor this class **DONE**
  */
-public class ComputerGuessesPanel extends JPanel {
 
+public class ComputerGuessesPanel extends JPanel {
     private int numGuesses;
     private int lastGuess;
 
