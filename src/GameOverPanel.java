@@ -5,7 +5,7 @@ import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-
+// ALL DONE WITH THIS FILE
 /**
  * Panel displays after a game has concluded
  * Displays the game outcome
@@ -68,9 +68,9 @@ public class GameOverPanel extends JPanel {
     /**
      * Sets the game results, updates the UI, and saves results to the log file (if human was playing)
      */
-    // TODO: refactor this method
-    // TODO: split up: seperate UI & I/O from other stuff
-    // todo: then, update lambda function in GuessTheNumberUI
+    // TODO: refactor this method **DONE**
+    // TODO: split up: seperate UI & I/O **DONE**
+    // todo: then, update lambda function in GuessTheNumberUI **DONE**
     // if computer playing
     public void setGameResults(GameResult result){
         this.gameResult = result;
@@ -86,8 +86,10 @@ public class GameOverPanel extends JPanel {
     }
 
     public void setGameResultsHumanPlaying(GameResult result) {
+        // this stuff happens regardless of who's playing
         setGameResults(result);
-        
+
+        // do IO stuff for if human's guessing
         try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.getFilename(), true))) {
 
             String [] record = new String[2];
@@ -99,8 +101,6 @@ public class GameOverPanel extends JPanel {
             // NOTE: In a full implementation, we would log this error and possibly alert the user
             // NOTE: For this project, you do not need unit tests for handling this exception.
         }
-
     }
-
 
 }
