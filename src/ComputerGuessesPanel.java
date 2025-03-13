@@ -46,7 +46,7 @@ public class ComputerGuessesPanel extends JPanel {
         addButtons(cardsPanel, gameFinishedCallback, guessMessage);
 
         this.addComponentListener(new java.awt.event.ComponentAdapter() {
-            // todo: move this method out
+            // todo: move this method out ??
             public void componentShown(java.awt.event.ComponentEvent e) {
                 numGuesses = 0;
                 upperBound = 1000;
@@ -57,6 +57,7 @@ public class ComputerGuessesPanel extends JPanel {
             }
         });
     }
+
 
     private void addButtons(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback, JLabel guessMessage) {
         JButton lowerBtn = new JButton("Lower");
@@ -76,7 +77,6 @@ public class ComputerGuessesPanel extends JPanel {
             guessMessage.setText("I guess ___.");
 
             // Send the result of the finished game to the callback
-            // todo: do we need to do this?? we only save if human was playing...
             GameResult result = new GameResult(false, lastGuess, numGuesses);
             gameFinishedCallback.accept(result);
 

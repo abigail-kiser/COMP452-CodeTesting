@@ -47,7 +47,7 @@ public class GameOverPanel extends JPanel {
         restart.addActionListener(e -> {
             // See itemStateChanged in https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/CardLayoutDemoProject/src/layout/CardLayoutDemo.java
             CardLayout cardLayout = (CardLayout) cardsPanel.getLayout();
-            String screenName = (gameResult == null || gameResult.humanWasPlaying ?
+            String screenName = (gameResult == null || gameResult.getHumanWasPlaying() ?
                     ScreenID.HUMAN_PLAY.name() : ScreenID.COMPUTER_PLAY_LAUNCH.name());
             cardLayout.show(cardsPanel, screenName);
         });
@@ -76,12 +76,12 @@ public class GameOverPanel extends JPanel {
         this.gameResult = result;
 
         // UI
-        answerTxt.setText("The answer was " + result.correctValue + ".");
-        if(result.numGuesses == 1){
-            numGuessesTxt.setText((result.humanWasPlaying ? "You" : "I") + " guessed it on the first try!");
+        answerTxt.setText("The answer was " + result.getCorrectValue() + ".");
+        if(result.getNumGuesses() == 1){
+            numGuessesTxt.setText((result.getHumanWasPlaying() ? "You" : "I") + " guessed it on the first try!");
         }
         else {
-            numGuessesTxt.setText("It took " + (result.humanWasPlaying ? "you" : "me") + " " + result.numGuesses + " guesses.");
+            numGuessesTxt.setText("It took " + (result.getHumanWasPlaying() ? "you" : "me") + " " + result.getNumGuesses() + " guesses.");
         }
     }
 
@@ -94,7 +94,7 @@ public class GameOverPanel extends JPanel {
 
             String [] record = new String[2];
             record[0] = LocalDateTime.now().toString();
-            record[1] = Integer.toString(gameResult.numGuesses);
+            record[1] = Integer.toString(gameResult.getNumGuesses());
 
             writer.writeNext(record);
         } catch (IOException e) {
