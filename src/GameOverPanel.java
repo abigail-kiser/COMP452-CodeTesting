@@ -69,7 +69,7 @@ public class GameOverPanel extends JPanel {
      * Sets the game results, updates the UI, and saves results to the log file (if human was playing)
      */
     // TODO: refactor this method **DONE**
-    // TODO: split up: seperate UI & I/O **DONE**
+    // TODO: split up: separate UI & I/O **DONE**
     // todo: then, update lambda function in GuessTheNumberUI **DONE**
     // if computer playing
     public void setGameResults(GameResult result){
@@ -89,7 +89,7 @@ public class GameOverPanel extends JPanel {
         // this stuff happens regardless of who's playing
         setGameResults(result);
 
-        // do IO stuff for if human's guessing
+        // do I/O stuff for if human's guessing
         try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.getFilename(), true))) {
 
             String [] record = new String[2];

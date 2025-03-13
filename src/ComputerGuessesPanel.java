@@ -20,8 +20,7 @@ public class ComputerGuessesPanel extends JPanel {
     private int upperBound; // correct number is <= upperBound
     private int lowerBound; // correct number is >= lowerBound
 
-    // todo: separate UI stuff from logic (lambda functions are all logic except
-    //  for setText)
+    // todo: separate UI stuff from logic (lambda functions are all logic except for setText)
     //  maybe move logic to non-UI class?
     public ComputerGuessesPanel(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback){
         numGuesses = 0;

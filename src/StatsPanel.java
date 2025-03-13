@@ -8,6 +8,7 @@ import java.util.ArrayList;
  *
  * TODO: refactor this class
  * TODO: move calculations to statsFile (only UI here) ?????????
+ * TODO fix this ???? -> find what needs to be refactored
  */
 public class StatsPanel extends JPanel {
 
@@ -18,8 +19,6 @@ public class StatsPanel extends JPanel {
     private static final int [] BIN_EDGES = {1, 2, 4, 6, 8, 10, 12, 14};
     private ArrayList<JLabel> resultsLabels;
 
-    //TODO: seperate bin logic and I/O
-    //TODO: constructor only have init. move everything else to other method
     public StatsPanel(JPanel cardsPanel) {
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
