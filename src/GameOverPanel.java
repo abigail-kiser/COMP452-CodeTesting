@@ -71,6 +71,7 @@ public class GameOverPanel extends JPanel {
     // TODO: refactor this method
     // TODO: split up: seperate UI & I/O from other stuff
     // todo: then, update lambda function in GuessTheNumberUI
+    // if computer playing
     public void setGameResults(GameResult result){
         this.gameResult = result;
 
@@ -82,16 +83,11 @@ public class GameOverPanel extends JPanel {
         else {
             numGuessesTxt.setText("It took " + (result.humanWasPlaying ? "you" : "me") + " " + result.numGuesses + " guesses.");
         }
-
-        if(result.humanWasPlaying){
-            // write stats to file (I/O)
-            // todo: move this to StatsFile? **note**: moved to writeStatsToFile in this class
-            writeStatsToFile();
-        }
     }
 
-    // I/O - extracted from setGameResults() above
-    private void writeStatsToFile() {
+    public void setGameResultsHumanPlaying(GameResult result) {
+        setGameResults(result);
+        
         try(CSVWriter writer = new CSVWriter(new FileWriter(StatsFile.getFilename(), true))) {
 
             String [] record = new String[2];
@@ -103,6 +99,8 @@ public class GameOverPanel extends JPanel {
             // NOTE: In a full implementation, we would log this error and possibly alert the user
             // NOTE: For this project, you do not need unit tests for handling this exception.
         }
+
     }
+
 
 }
