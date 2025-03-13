@@ -93,11 +93,10 @@ public class StatsPanel extends JPanel {
         }
     }
 
-    //TODO: dependency injection for file
-    private void updateResultsPanel(){
+    // added dependency injection (stats)
+    private void updateResultsPanel(GameStats stats){
         clearResults();
 
-        GameStats stats = new StatsFile();
 
         for(int binIndex=0; binIndex<BIN_EDGES.length; binIndex++){
             final int lowerBound = BIN_EDGES[binIndex];
@@ -121,4 +120,14 @@ public class StatsPanel extends JPanel {
             resultLabel.setText(Integer.toString(numGames));
         }
     }
+
+
+    private void updateResultsPanel(){
+        clearResults();
+        GameStats stats = new StatsFile();
+        updateResultsPanel(stats);
+    }
+
+
 }
+
