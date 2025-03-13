@@ -42,6 +42,23 @@ public class ComputerGuessesPanel extends JPanel {
         prompt.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createRigidArea(new Dimension(0,10)));
 
+
+        addButtons(cardsPanel, gameFinishedCallback, guessMessage);
+
+        this.addComponentListener(new java.awt.event.ComponentAdapter() {
+            // todo: move this method out
+            public void componentShown(java.awt.event.ComponentEvent e) {
+                numGuesses = 0;
+                upperBound = 1000;
+                lowerBound = 1;
+
+                lastGuess = (lowerBound + upperBound + 1) / 2;
+                guessMessage.setText("I guess " + lastGuess + ".");
+            }
+        });
+    }
+
+    private void addButtons(JPanel cardsPanel, Consumer<GameResult> gameFinishedCallback, JLabel guessMessage) {
         JButton lowerBtn = new JButton("Lower");
         lowerBtn.addActionListener(e -> {
             upperBound = Math.min(upperBound, lastGuess);
@@ -79,19 +96,6 @@ public class ComputerGuessesPanel extends JPanel {
         });
         this.add(higherBtn);
         higherBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-
-        this.addComponentListener(new java.awt.event.ComponentAdapter() {
-            // todo: move this method out
-            public void componentShown(java.awt.event.ComponentEvent e) {
-                numGuesses = 0;
-                upperBound = 1000;
-                lowerBound = 1;
-
-                lastGuess = (lowerBound + upperBound + 1) / 2;
-                guessMessage.setText("I guess " + lastGuess + ".");
-            }
-        });
     }
 
 }
