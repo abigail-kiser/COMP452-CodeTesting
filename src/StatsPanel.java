@@ -93,7 +93,7 @@ public class StatsPanel extends JPanel {
         }
     }
 
-    // added dependency injection (stats)
+    // todo: added dependency injection (stats) **DONE**
     private void updateResultsPanel(GameStats stats){
         clearResults();
 
