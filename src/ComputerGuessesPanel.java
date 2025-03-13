@@ -76,6 +76,7 @@ public class ComputerGuessesPanel extends JPanel {
             guessMessage.setText("I guess ___.");
 
             // Send the result of the finished game to the callback
+            // todo: do we need to do this?? we only save if human was playing...
             GameResult result = new GameResult(false, lastGuess, numGuesses);
             gameFinishedCallback.accept(result);
 
