@@ -39,28 +39,23 @@ public class StatsFile extends GameStats {
     }
 
     // todo: make simpler for testing? maybe further extract I/O?????
-    private void updateStatsMapFromFile(CSVReader csvReader) throws CsvValidationException, IOException {
-        LocalDateTime limit = LocalDateTime.now().minusDays(30);
+    protected void updateStatsMapFromFile(CSVReader csvReader) throws CsvValidationException, IOException {
         String[] values = null;
 
         while ((values = csvReader.readNext()) != null) {
             // values should have the date and the number of guesses as the two fields
-            try {
-                LocalDateTime timestamp = LocalDateTime.parse(values[0]);
-                int numGuesses = Integer.parseInt(values[1]);
+            addStat(values);
+        }
+    }
 
-                if (timestamp.isAfter(limit)) {
-                    statsMap.put(numGuesses, 1 + statsMap.getOrDefault(numGuesses, 0));
-                }
-            }
-            catch(NumberFormatException nfe){
-                // NOTE: In a full implementation, we would log this error and possibly alert the user
-                throw nfe;
-            }
-            catch(DateTimeParseException dtpe){
-                // NOTE: In a full implementation, we would log this error and possibly alert the user
-                throw dtpe;
-            }
+    private void addStat(String[] values) {
+        LocalDateTime limit = LocalDateTime.now().minusDays(30);
+
+        LocalDateTime timestamp = LocalDateTime.parse(values[0]);
+        int numGuesses = Integer.parseInt(values[1]);
+
+        if (timestamp.isAfter(limit)) {
+            statsMap.put(numGuesses, 1 + statsMap.getOrDefault(numGuesses, 0));
         }
     }
 

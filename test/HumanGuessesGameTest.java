@@ -39,12 +39,20 @@ class HumanGuessesGameTest {
         assertEquals(GuessResult.LOW, result);
     }
 
-//    @Test
-//    void getNumGuesses() {
-//    }
-//
-//    @Test
-//    void isDone() {
-//    }
-    //i dont think these need to be tested
+    @Test
+    void getNumGuesses() {
+        HumanGuessesGame g = new HumanGuessesGame(10);
+        g.makeGuess(60);
+        g.makeGuess(6);
+        assertEquals(2, g.getNumGuesses());
+    }
+
+    //fails
+    @Test
+    void isDone() {
+        HumanGuessesGame g = new HumanGuessesGame(10);
+        g.makeGuess(10);
+        assertEquals(true, g.isDone());
+    }
+
 }
