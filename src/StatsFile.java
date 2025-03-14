@@ -64,11 +64,21 @@ public class StatsFile extends GameStats {
     private void addStat(String[] values) {
         LocalDateTime limit = LocalDateTime.now().minusDays(30);
 
-        LocalDateTime timestamp = LocalDateTime.parse(values[0]);
-        int numGuesses = Integer.parseInt(values[1]);
+        try {
+            LocalDateTime timestamp = LocalDateTime.parse(values[0]);
+            int numGuesses = Integer.parseInt(values[1]);
 
-        if (timestamp.isAfter(limit)) {
-            statsMap.put(numGuesses, 1 + statsMap.getOrDefault(numGuesses, 0));
+            if (timestamp.isAfter(limit)) {
+                statsMap.put(numGuesses, 1 + statsMap.getOrDefault(numGuesses, 0));
+            }
+        }
+        catch(NumberFormatException nfe){
+            // NOTE: In a full implementation, we would log this error and possibly alert the user
+            throw nfe;
+        }
+        catch(DateTimeParseException dtpe){
+            // NOTE: In a full implementation, we would log this error and possibly alert the user
+            throw dtpe;
         }
     }
 

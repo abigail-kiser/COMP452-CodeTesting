@@ -14,7 +14,7 @@ public class TestCSVReader extends CSVReader {
     String[] s2 = {LocalDateTime.now().toString(),"3"};
     String[] s3 = {"2020-02-24T20:15:28.750793100","9"}; //old time
     String[] s4 = {LocalDateTime.now().toString(),"1"};
-    String[] s5 = {"2020-02-24T20:15:28.750793100","10"}; //old time
+    String[] s5 = {LocalDateTime.now().toString(),"10"};
     String[] s6 = {LocalDateTime.now().toString(),"13"};
     ArrayList<String[]> s = new ArrayList<>(List.of(s1,s2,s3,s4,s5,s6));
 
