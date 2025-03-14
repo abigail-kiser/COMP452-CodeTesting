@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HumanGuessesGameTest {
 
+    //chk if there is a max num for guesses
+    //chk if guess should be less than 1001
+    //chk if guess should be greater than -1
+
+
     @Test
     void makeLowGuess() {
         HumanGuessesGame g = new HumanGuessesGame(10);
