@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class StatsFileTest {
 
-    // all but the last test are using dependency injection
+    // all but the last 2 tests are using dependency injection
     @Test
     public void gameWithOneGuess(){
         //using dependency injection
@@ -47,6 +47,7 @@ class StatsFileTest {
         assertEquals(0,s.numGames(9));
     }
 
+    // expects an exception
     @Test
     public void numGamesWithWrongTime(){
         //catches error
@@ -66,5 +67,12 @@ class StatsFileTest {
         TestCSVReader r = new TestCSVReader(Reader.nullReader());
         StatsFile s = new StatsFile(r);
         assertEquals(13,s.maxNumGuesses());
+    }
+
+    @Test
+    public void emptyMaxNumGuesses(){
+        EmptyCSVReader r = new EmptyCSVReader(Reader.nullReader());
+        StatsFile s = new StatsFile(r);
+        assertEquals(0,s.maxNumGuesses());
     }
 }
